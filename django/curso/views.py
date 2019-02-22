@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .forms import ContactoForm
 
 
 def home(request):
@@ -19,7 +20,18 @@ def blog(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    enviado = False
+    if request.method == "POST":
+        f = ContactoForm(request.POST)
+        if f.is_valid():
+            f.save()
+            enviado = True
+    else:
+        f = ContactoForm()
+
+    context = {"form": f,
+               "enviado": enviado}
+    return render(request, 'contact.html', context)
 
 
 def elements(request):

@@ -8,5 +8,5 @@ class ContactoForm(ModelForm):
         fields = ['nombre', 'asunto', 'email', 'texto']
 
 
-contacto = Contacto.objects.get(pk=1)
+contacto = Contacto.objects.last()
 form = ContactoForm(instance=contacto)
